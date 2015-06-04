@@ -38,7 +38,12 @@ if (json_decode($dataset, TRUE)) {
 } else {
     
     //return an invalid response message
-    die(Config::INVALID_RESPONSE_FORMAT);
+     $resp = array(
+        "message" => Config::INVALID_RESPONSE_FORMAT,
+        "suggestion"=>array(
+            "Check the url by doing a curl -i[k] [URL]",
+            "Check and Validate the dataset being returned")
+    );
+    
+    die(json_encode($resp));
 }
-
-
