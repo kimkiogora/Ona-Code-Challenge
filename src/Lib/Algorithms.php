@@ -1,5 +1,12 @@
 <?php
+//Defines the header request
 define("USAGE", "ONA CODE CHALLENGE");
+
+//Used for ranking percentages
+define("RATE", 100);
+
+//Used for formatting final value to 2 decimal points/places 
+define("FORMAT", "%.2f");
 
 /**
  * This class holds the algorithms.
@@ -94,8 +101,8 @@ class Algorithms {
         //Calculate the percentages
         $perc = array();
         foreach ($data as $community=>$broken_water_points){
-            $p = ($broken_water_points*100)/$total;
-            $perc[$community]=  sprintf("%.2f", $p);
+            $p = ($broken_water_points*RATE)/$total;
+            $perc[$community]=  sprintf(FORMAT, $p);
         }
         //Sort the associative array based on calculated 
         //percentages
