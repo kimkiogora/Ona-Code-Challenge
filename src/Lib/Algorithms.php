@@ -44,8 +44,8 @@ class Algorithms {
                             = Algorithms::getWaterPointsToTal($dataset,
                                     $community);
                     $community_arrayx[$community] 
-                            = Algorithms::getWaterPointsToTal($dataset, 
-                                    $community, 'no');
+                            = Algorithms::getBrokenWaterPointsToTal($dataset, 
+                                    $community);
                     $ranking_array = $community_arrayx;
                 }
                 if (strcasecmp($stat, "yes") == 0) {
@@ -87,6 +87,29 @@ class Algorithms {
         return $counter;
     }
 
+    /**
+     * Get water points that are broken.
+     * 
+     * @param type $dataset
+     * @param type $community
+     * @return int
+     */
+    private static function getBrokenWaterPointsToTal($dataset, $community) {
+        $counter = 0;
+        foreach ($dataset as $data => $value) {
+            if (isset($value['communities_villages'])) {
+                $community_cmp = $value['communities_villages'];
+                if (strcasecmp($community, $community_cmp) == 0) {
+                    $stat = $value['water_point_condition'];
+                    if (strcasecmp($stat, "broken") == 0) {
+                        ++$counter;
+                    }
+                }
+            }
+        }
+        return $counter;
+    }
+    
     /**
      * Calculate the ranking by community.
      * @param type $dataset
