@@ -27,4 +27,5 @@ To run this challenge, download and extract. Open a terminal and navigate to the
 
 Execute php run.php
 
-Sample test results https://github.com/kimkiogora/Ona-Code-Challenge/blob/master/SampleResponses/reponse.txt
+Sample test results,
+https://raw.githubusercontent.com/kimkiogora/Ona-Code-Challenge/master/SampleResponses/reponse.txt
