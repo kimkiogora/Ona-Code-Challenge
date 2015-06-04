@@ -1,4 +1,5 @@
 <?php
+define("USAGE", "ONA CODE CHALLENGE");
 
 /**
  * This class holds the algorithms.
@@ -114,7 +115,7 @@ class Algorithms {
         curl_setopt_array($ch, array(
             CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_URL => $url,
-            CURLOPT_USERAGENT => "ONA Code Challenge"));
+            CURLOPT_USERAGENT => USAGE));
         $resp = curl_exec($ch);
         curl_close($ch);
         return $resp;
