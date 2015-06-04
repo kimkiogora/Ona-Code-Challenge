@@ -27,5 +27,11 @@ To run this challenge, download and extract. Open a terminal and navigate to the
 
 Execute php run.php
 
-Sample test results,
+Sample test results
+Successful Sample Response
+
 https://raw.githubusercontent.com/kimkiogora/Ona-Code-Challenge/master/SampleResponses/reponse.txt
+
+Erroneous Sample Response
+
+https://raw.githubusercontent.com/kimkiogora/Ona-Code-Challenge/master/SampleResponses/ErrorResponse.json
