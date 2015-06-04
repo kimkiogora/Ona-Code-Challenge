@@ -33,8 +33,10 @@ class Algorithms {
             $community = $value['communities_villages'];
 
             if (!in_array($community, $community_array)) {
-                $community_array[$community] = Algorithms::getWaterPointsToTal($dataset, $community);
-                $community_arrayx[$community] = Algorithms::getWaterPointsToTal($dataset, $community,'no');
+                $community_array[$community] 
+                    = Algorithms::getWaterPointsToTal($dataset, $community);
+                $community_arrayx[$community] 
+                    = Algorithms::getWaterPointsToTal($dataset, $community,'no');
                 $ranking_array=$community_arrayx;
             }
 
@@ -75,7 +77,7 @@ class Algorithms {
     }
 
     /**
-     * Count the number of water points per community.
+     * Calculate the ranking by community.
      * @param type $dataset
      * @param type $community
      */
