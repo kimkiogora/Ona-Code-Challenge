@@ -14,7 +14,9 @@
 class Algorithms {
 
     /**
-     * Calculate the functional water points.
+     * Calculate the functional water points,water points per 
+     * community and rank for each community by the percentage
+     * of broken water points.
      * 
      * @param type $dataset
      */
@@ -43,8 +45,6 @@ class Algorithms {
 
         $counts['functional_water_points'] = $counter;
         $counts['number_of_water_points'] = json_encode($community_array);
-        
-        //Ranking will be a merger
         $counts['community_ranking'] = Algorithms::getRanking($ranking_array);
 
         return $counts;
