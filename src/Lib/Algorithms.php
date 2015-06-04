@@ -101,9 +101,11 @@ class Algorithms {
             if (isset($value['communities_villages'])) {
                 $community_cmp = $value['communities_villages'];
                 if (strcasecmp($community, $community_cmp) == 0) {
-                    $stat = $value['water_point_condition'];
-                    if (strcasecmp($stat, "broken") == 0) {
-                        ++$counter;
+                    if(isset($value['water_point_condition'])){
+                        $stat = $value['water_point_condition'];
+                        if (strcasecmp($stat, "broken") == 0) {
+                            ++$counter;
+                        }
                     }
                 }
             }
