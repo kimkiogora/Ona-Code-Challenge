@@ -28,7 +28,7 @@ if (json_decode($dataset, TRUE)) {
     $tat = microtime(true)-$start_time;
     
     //TAT is useful for redesign of slow algorithms
-    $calc['TAT'] = "$tat sec";
+    $tat = sprintf("%.2f",(microtime(true) - $start_time));
 
     //Display the response in array format 
     print_r($calc);
