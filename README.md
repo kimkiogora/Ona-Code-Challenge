@@ -21,4 +21,8 @@ calculate("http://...").., which returns a data structure with the above informa
   community_ranking: ... 
 }
 
-This code above ( in src folder ) is a simple php approach to the above
+This code above ( in src folder ) is a simple php approach to the above.
+
+To run this challenge, download and extract. Open a terminal and navigate to the src folder. 
+
+Execute php run.php
