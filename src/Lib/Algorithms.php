@@ -112,7 +112,7 @@ class Algorithms {
     }
 
     /**
-     * Function sends a GET request.
+     * Function retrieve the dataset from a given URL.
      *  
      * @param type $url
      * @return string
