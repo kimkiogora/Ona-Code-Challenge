@@ -4,7 +4,7 @@
  * This class is the entry point.
  *
  * @category  ONA
- * @package   Lib
+ * @package   Entry/Main
  * @author    Kim Kiogora <kimkiogora@gmail.com>
  * @copyright 2015 ONA Code Challenge
  * @license   Proprietory License
