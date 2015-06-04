@@ -62,6 +62,7 @@ class Algorithms {
 
     /**
      * Count the number of water points per community.
+     * 
      * @param type $dataset
      * @param type $community
      * @param type $functioning - optional
@@ -111,7 +112,8 @@ class Algorithms {
     }
     
     /**
-     * Calculate the ranking by community.
+     * Calculate the ranking by community in Descending Order.
+     * 
      * @param type $dataset
      * @param type $community
      */
