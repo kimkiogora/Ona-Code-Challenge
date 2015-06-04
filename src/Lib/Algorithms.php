@@ -21,34 +21,34 @@ class Algorithms {
      * @param type $dataset
      */
     public static function Calculate($dataset) {
-        $counts = array();
-        $community_array = array();//water points per community
-        $community_arrayx = array();//non-functional water points
-        $ranking_array = array();//ranking  by percentage
+        $counts = array();//Generic array holder for all the subset of results
+        $community_array = array(); //water points per community
+        $community_arrayx = array(); //non-functional water points
+        $ranking_array = array(); //ranking  by percentage
+        $counter = 0;//A generic counter for water points
 
-        $counter = 0;
-        
         foreach ($dataset as $data => $value) {
-            $stat = $value['water_functioning'];
-            $community = $value['communities_villages'];
-
-            if (!in_array($community, $community_array)) {
-                $community_array[$community] 
-                    = Algorithms::getWaterPointsToTal($dataset, $community);
-                $community_arrayx[$community] 
-                    = Algorithms::getWaterPointsToTal($dataset, $community,'no');
-                $ranking_array=$community_arrayx;
-            }
-
-            if (strcasecmp($stat, "yes") == 0) {
-                ++$counter;
+            if(isset($value['water_functioning'])){
+                $stat = $value['water_functioning'];
+                $community = $value['communities_villages'];
+                if (!in_array($community, $community_array)) {
+                    $community_array[$community] 
+                            = Algorithms::getWaterPointsToTal($dataset,
+                                    $community);
+                    $community_arrayx[$community] 
+                            = Algorithms::getWaterPointsToTal($dataset, 
+                                    $community, 'no');
+                    $ranking_array = $community_arrayx;
+                }
+                if (strcasecmp($stat, "yes") == 0) {
+                    ++$counter;
+                }
             }
         }
-
+        
         $counts['functional_water_points'] = $counter;
         $counts['number_of_water_points'] = json_encode($community_array);
         $counts['community_ranking'] = Algorithms::getRanking($ranking_array);
-
         return $counts;
     }
 
@@ -56,19 +56,22 @@ class Algorithms {
      * Count the number of water points per community.
      * @param type $dataset
      * @param type $community
+     * @param type $functioning - optional
      */
     private static function getWaterPointsToTal($dataset, $community,
             $functioning = 'yes') {
         $counter = 0;
         foreach ($dataset as $data => $value) {
-            $community_cmp = $value['communities_villages'];
-            if (strcasecmp($community, $community_cmp) == 0) {
-                if ($functioning == NULL || empty($functioning)) {
-                    ++$counter;
-                } else {
-                    $stat = $value['water_functioning'];
-                    if (strcasecmp($functioning, $stat) == 0) {
+            if (isset($value['communities_villages'])) {
+                $community_cmp = $value['communities_villages'];
+                if (strcasecmp($community, $community_cmp) == 0) {
+                    if ($functioning == NULL || empty($functioning)) {
                         ++$counter;
+                    } else {
+                        $stat = $value['water_functioning'];
+                        if (strcasecmp($functioning, $stat) == 0) {
+                            ++$counter;
+                        }
                     }
                 }
             }
@@ -86,17 +89,17 @@ class Algorithms {
         $total=0;
         foreach ($data as $community=>$broken_water_points){
             $total=$total+$broken_water_points;
-        }  
-        
-        //do a percentage
+        }
+        //Calculate the percentages
         $perc = array();
         foreach ($data as $community=>$broken_water_points){
             $p = ($broken_water_points*100)/$total;
             $perc[$community]=  sprintf("%.2f", $p);
-        }  
-        
+        }
+        //Sort the associative array based on calculated 
+        //percentages
         array_multisort($perc);
-        
+        //Return the final values.
         return json_encode($perc);
     }
 
@@ -108,17 +111,12 @@ class Algorithms {
      */
     public static function getDataSet($url) {
         $ch = curl_init();
-
         curl_setopt_array($ch, array(
             CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_URL => $url,
             CURLOPT_USERAGENT => "ONA Code Challenge"));
-
         $resp = curl_exec($ch);
-
         curl_close($ch);
-
         return $resp;
     }
-
 }
