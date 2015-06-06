@@ -29,39 +29,46 @@ class Algorithms {
      * @param type $dataset
      */
     public static function Calculate($dataset) {
-        $counts = array();//Generic array holder for all the subset of results
+        $counts = array();
         $community_array = array(); //water points per community
         $community_arrayx = array(); //non-functional water points
         $ranking_array = array(); //ranking  by percentage
-        $counter = 0;//A generic counter for water points
-
+        $counter = 0;
+        
         foreach ($dataset as $data => $value) {
-            if(isset($value['water_functioning'])){
+            if (isset($value['water_functioning'])) {
                 $stat = $value['water_functioning'];
                 $community = $value['communities_villages'];
-                if (!in_array($community, $community_array)) {
-                    $community_array[$community] 
-                            = Algorithms::getWaterPointsToTal($dataset,
-                                    $community);
-                    $community_arrayx[$community] 
-                            = Algorithms::getBrokenWaterPointsToTal($dataset, 
-                                    $community);
-                    $ranking_array = $community_arrayx;
-                }
+                if (!in_array($community, $community_arrayx)) {
+                    array_push($community_arrayx, $community);
+                }                
                 if (strcasecmp($stat, "yes") == 0) {
                     ++$counter;
                 }
             }
         }
+
+        $cc_arr=array();
         
+        for ($y = 0; $y < count($community_arrayx); ++$y) {
+            $comm = $community_arrayx[$y];
+            $community_array[$comm] 
+                    = Algorithms::getWaterPointsToTal($dataset, $comm);
+            
+            $cc_arr[$comm] 
+                    = Algorithms::getBrokenWaterPointsToTal($dataset, $comm);
+            $ranking_array = $cc_arr;
+        }
+        
+                
         $counts['functional_water_points'] = $counter;
         $counts['number_of_water_points'] = json_encode($community_array);
         $counts['community_ranking'] = Algorithms::getRanking($ranking_array);
+
         return $counts;
     }
-
-    /**
-     * Count the number of water points per community.
+    
+    /* Count the number of water points per community.
      * 
      * @param type $dataset
      * @param type $community
